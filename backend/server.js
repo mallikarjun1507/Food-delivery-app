@@ -21,10 +21,10 @@ app.use('/api', orderRoutes);
 initDb()
   .then(() => {
     app.listen(5000, () => {
-      console.log('🚀 Server running on http://localhost:5000');
+      console.log(' Server running on http://localhost:5000');
     });
   })
   .catch((err) => {
-    console.error('❌ Failed to initialize DB:', err.message);
+    console.error(' Failed to initialize DB:', err.message);
     process.exit(1);
   });

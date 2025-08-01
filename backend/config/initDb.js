@@ -53,13 +53,13 @@ const initDb = () => {
           db.end();
           return reject(err);
         }
-        console.log('✅ Table `foods` created or already exists.');
+        console.log(' Table `foods` created or already exists.');
 
         // Step 4: Insert Sample Data
         db.query(insertDataQuery, (err) => {
           db.end();
           if (err) return reject(err);
-          console.log('✅ Sample food data inserted.');
+          console.log('Sample food data inserted.');
           resolve();
         });
       });

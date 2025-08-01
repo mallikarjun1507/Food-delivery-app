@@ -1,20 +1,30 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
+require('dotenv').config();
 
-// Import routes
-const foodRoutes = require('./routes/foodRoutes');
-const orderRoutes = require('./routes/orderRoutes'); 
+const initDb = require('./config/initDb'); // Ensures DB exists
+const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api', foodRoutes);        
-app.use('/api', orderRoutes);       
+// Import routes
+const foodRoutes = require('./routes/foodRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
-// Server
-app.listen(5000, () => {
-  console.log('Server running on port 5000');
-});
+// Routes
+app.use('/api', foodRoutes);
+app.use('/api', orderRoutes);
+
+// Initialize DB and start server
+initDb()
+  .then(() => {
+    app.listen(5000, () => {
+      console.log('🚀 Server running on http://localhost:5000');
+    });
+  })
+  .catch((err) => {
+    console.error('❌ Failed to initialize DB:', err.message);
+    process.exit(1);
+  });
